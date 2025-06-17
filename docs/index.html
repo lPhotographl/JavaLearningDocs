@@ -1,0 +1,187 @@
+<!-- 声明文档类型为 HTML5，告诉浏览器使用 HTML5 标准解析页面 -->
+<!DOCTYPE html>
+<!-- 设置页面语言为简体中文，有助于搜索引擎优化和屏幕阅读器识别 -->
+<html lang="zh-CN">
+
+<head>
+    <!-- 指定页面的字符编码为 UTF-8，支持全球大多数语言字符的显示 -->
+    <meta charset="UTF-8">
+    <!-- 强制 IE 浏览器使用最新的渲染引擎，同时优先使用 Chrome 框架（如果安装） -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- 配置移动端视口，让页面宽度等于设备宽度，初始缩放比例为 1，最小缩放比例为 1 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <!-- 设置浏览器标签页和收藏夹中显示的页面标题 -->
+    <title>Java学习笔记</title>
+    <!-- 提供页面内容的简要描述，有助于搜索引擎展示搜索结果 -->
+    <meta name="description" content="Java学习笔记 - 涵盖Java编程基础、进阶及实践案例">
+    <!-- 设置与页面内容相关的关键词，帮助搜索引擎索引页面 -->
+    <meta name="keywords" content="Java,编程教程,学习笔记,面向对象,Spring框架">
+
+    <!-- 合并为单个 docsify 配置，docsify 是一个动态生成文档网站的工具 -->
+    <script>
+        // 配置 docsify 的全局参数，存储在 window.$docsify 对象中
+        window.$docsify = {
+            // 设置文档首页为 home.md 文件
+            homepage: 'home.md',
+            // 设置文档网站的名称，显示在侧边栏顶部
+            name: 'Java学习笔记',
+            // 关联文档对应的 GitHub 仓库地址
+            repo: 'https://github.com/yourname/java-notes',
+            // 启用侧边栏功能，从 _sidebar.md 文件加载侧边栏内容
+            loadSidebar: true,
+            // 设置目录的最大层级为 3 级
+            subMaxLevel: 3,
+            // 设置侧边栏默认显示的层级为 1 级
+            sidebarDisplayLevel: 1,
+            // 设置路由别名，将特定路径映射到指定文件
+            alias: {
+                '/.*/_sidebar.md': '/_sidebar.md',
+                '/guide': '/guide.md'
+            },
+            // 启用封面页功能，默认封面文件为 _coverpage.md
+            coverpage: true,  // 封面文件默认应为 _coverpage.md（需确认是否存在）
+            // 配置搜索功能
+            search: {
+                // 设置搜索缓存的有效期为 24 小时（以毫秒为单位）
+                maxAge: 86400000,
+                // 自动生成搜索路径
+                paths: 'auto',
+                // 设置搜索框的占位提示文本
+                placeholder: '搜索文档',
+                // 当没有搜索结果时显示的提示信息
+                noData: '没有找到相关结果'
+            }
+        }
+    </script>
+
+    <!-- 引入 docsify 的 Vue 主题样式文件，使用 CDN 加速加载 -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css">
+    <style>
+        /* 设置页面主体的基础背景样式 */
+        body {
+            /* 使用相对路径引入背景图片，并设置图片不重复，居中显示 */
+            background: url(docs/.idea/image/moonlightBackGround.png) no-repeat center center;
+            /* 让背景图片覆盖整个页面 */
+            background-size: cover;
+        }
+
+        /* 设置应用容器的样式 */
+        #app {
+            /* 设置背景为透明 */
+            background: transparent;
+            /* 最小高度为视口高度，确保容器至少占满整个屏幕 */
+            min-height: 100vh;
+            /* 左边距为 280px，为侧边栏留出空间 */
+            margin-left: 280px;
+            /* 内边距为上下 20px，左右 40px */
+            padding: 20px 40px;
+            /* 宽度为视口宽度减去 280px */
+            width: calc(100% - 280px);
+        }
+
+        /* 主页专属样式，当页面路径以 /home 开头时生效 */
+        body[data-page^="/home"] #app {
+            /* 取消左边距，让内容全屏显示 */
+            margin-left: 0;
+            /* 宽度为 100%，占满整个屏幕 */
+            width: 100%;
+            /* 垂直内边距为视口高度的 20%，水平内边距为 20px */
+            padding: 20vh 20px;  /* 保留垂直内边距 */
+            /* 使用 Flex 布局，垂直居中显示内容 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* 主页中 Markdown 区域的标题样式 */
+        body[data-page^="/home"] .markdown-section h1 {
+            /* 标题居中显示 */
+            text-align: center;
+            /* 标题字体大小为 3.5 倍根元素字体大小 */
+            font-size: 8.5rem;
+            /* 标题颜色为白色，透明度为 95% */
+            color: rgba(255, 255, 255, 0.95);
+            /* 标题添加阴影效果，增强立体感 */
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+            /* 标题底部外边距为 2 倍根元素字体大小 */
+            margin-bottom: 2rem;
+        }
+
+        /* 主页按钮容器样式 */
+        .home-buttons {
+            /* 使用网格布局，按钮之间的间距为 1.5 倍根元素字体大小 */
+            display: grid;
+            gap: 1.5rem;
+            /* 最大宽度为 600px，避免按钮过宽 */
+            max-width: 600px;
+            /* 水平居中显示 */
+            margin: 3rem auto;
+        }
+
+        /* 主页按钮样式 */
+        .home-buttons a {
+            /* 按钮背景为半透明白色 */
+            background: rgba(255, 255, 255, 0.1);
+            /* 应用毛玻璃效果，模糊半径为 8px */
+            backdrop-filter: blur(8px);
+            /* 按钮内边距为上下 1.2 倍根元素字体大小，左右 2 倍根元素字体大小 */
+            padding: 1.2rem 2rem;
+            /* 按钮圆角为 12px */
+            border-radius: 12px;
+            /* 按钮文字颜色为白色 */
+            color: white;
+            /* 按钮边框为半透明白色，宽度为 1px */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            /* 添加过渡效果，所有属性变化在 0.3 秒内完成 */
+            transition: all 0.3s;
+        }
+
+        /* 主页按钮悬停样式 */
+        .home-buttons a:hover {
+            /* 悬停时背景透明度增加 */
+            background: rgba(255, 255, 255, 0.25);
+            /* 悬停时按钮向上移动 2px */
+            transform: translateY(-2px);
+        }
+
+        /* 其他页面背景控制，当页面路径不以 /home 开头且不等于 /guide 时生效 */
+        body:not([data-page^="/home"]):not([data-page="/guide"]) {
+            /* 移除背景图片 */
+            background: none !important;
+            /* 设置背景颜色为白色 */
+            background-color: white;
+        }
+
+        /* 新增主页背景遮罩，当页面路径以 /home 开头时生效 */
+        body[data-page^="/home"]::before {
+            /* 伪元素内容为空 */
+            content: "";
+            /* 绝对定位，覆盖整个页面 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* 背景为半透明黑色 */
+            background: rgba(0, 0, 0, 0.4);
+            /* 设置层级为 -1，确保在内容下方 */
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 应用容器，docsify 会将文档内容渲染到这个容器中 -->
+    <div id="app"></div>
+
+    <!-- 加载 docsify 搜索插件，使用 CDN 加速加载 -->
+    <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+    <!-- 加载 Prism.js 的 Java 语法高亮插件，用于高亮代码块 -->
+    <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-java.min.js"></script>
+    <!-- 加载 docsify 侧边栏折叠插件，使用 CDN 加速加载 -->
+    <script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
+    <!-- 加载 docsify 主库，版本为 4，使用 CDN 加速加载，最后加载以确保插件先初始化 -->
+    <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>  <!-- 主库最后加载 -->
+</body>
+
+</html>
