@@ -167,6 +167,34 @@
             /* 设置层级为 -1，确保在内容下方 */
             z-index: -1;
         }
+
+        /* 手机/平板等小屏幕适配（关键新增） */
+        @media (max-width: 768px) {
+            /* 1. 取消侧边栏固定边距，内容宽度占满屏幕 */
+            #app {
+                margin-left: 0 !important;  /* 强制覆盖PC端的280px边距 */
+                width: 100% !important;      /* 宽度占满屏幕 */
+                padding: 10px 15px;          /* 缩小内边距，避免内容拥挤 */
+            }
+
+            /* 2. 主页标题字体缩小（原8.5rem太大） */
+            body[data-page^="/home"] .markdown-section h1 {
+                font-size: 3.5rem;  /* 手机端更合适的标题大小 */
+                margin-bottom: 1rem; /* 减少底部边距 */
+            }
+
+            /* 3. 主页按钮容器宽度适配小屏幕 */
+            .home-buttons {
+                max-width: 90%;  /* 宽度占屏幕的90%，避免边缘溢出 */
+                margin: 2rem auto; /* 减少上下边距 */
+            }
+
+            /* 4. 按钮内边距缩小，适应小屏幕点击 */
+            .home-buttons a {
+                padding: 0.8rem 1.5rem;  /* 原1.2rem/2rem太大 */
+                font-size: 0.9rem;       /* 按钮文字适当缩小 */
+            }
+        }
     </style>
 </head>
 
